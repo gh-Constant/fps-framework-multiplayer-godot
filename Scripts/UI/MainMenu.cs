@@ -29,6 +29,11 @@ public partial class MainMenu : Control
         // Connect signals
         _hostButton.Pressed += OnHostPressed;
         _joinButton.Pressed += OnJoinPressed;
+        
+        // Connect to NetworkManager signals
+        var networkManager = GetNode<NetworkManager>("/root/NetworkManager");
+        networkManager.Connect("ConnectionFailed", new Callable(this, nameof(OnConnectionFailed)));
+        networkManager.Connect("ConnectedToServer", new Callable(this, nameof(OnConnectedToServer)));
     }
 
     private void OnHostPressed()
@@ -58,21 +63,50 @@ public partial class MainMenu : Control
         if (int.TryParse(_port.Text, out int port))
         {
             SetStatus("Connecting to server...", Colors.Yellow);
+            DisableButtons();
             var error = NetworkManager.Instance.JoinGame(_ipAddress.Text, port);
-            if (error == Error.Ok)
-            {
-                SetStatus("Connected! Loading world...", Colors.Green);
-                CallDeferred(nameof(LoadGameWorld));
-            }
-            else
+            if (error != Error.Ok)
             {
                 SetStatus($"Failed to connect: {error}", Colors.Red);
+                EnableButtons();
             }
         }
         else
         {
             SetStatus("Invalid port number!", Colors.Red);
         }
+    }
+
+    private void OnConnectionFailed()
+    {
+        CallDeferred(nameof(HandleConnectionFailed));
+    }
+
+    private void HandleConnectionFailed()
+    {
+        SetStatus("Connection failed or timed out!", Colors.Red);
+        EnableButtons();
+    }
+
+    private void OnConnectedToServer()
+    {
+        CallDeferred(nameof(LoadGameWorld));
+    }
+
+    private void DisableButtons()
+    {
+        _hostButton.Disabled = true;
+        _joinButton.Disabled = true;
+        _ipAddress.Editable = false;
+        _port.Editable = false;
+    }
+
+    private void EnableButtons()
+    {
+        _hostButton.Disabled = false;
+        _joinButton.Disabled = false;
+        _ipAddress.Editable = true;
+        _port.Editable = true;
     }
 
     private void LoadGameWorld()
