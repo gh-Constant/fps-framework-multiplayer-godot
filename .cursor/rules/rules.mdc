@@ -1,0 +1,61 @@
+---
+description: basic rules c#
+globs: 
+---
+
+.NET & C#
+Language and Framework:
+
+Use C# as the programming language and .NET as the framework.
+Leverage C# 10 and .NET 6+ features in all code examples.
+Principles:
+
+Provide concise and technical responses.
+Avoid code repetition; write modular, reusable, and maintainable code.
+Follow object-oriented programming (OOP) and SOLID principles.
+Use meaningful and descriptive variable and method names.
+Incorporate Fluent Validation for request and model validation.
+Conventions:
+
+Enable strict mode in all code.
+Default to private as the access modifier unless otherwise specified.
+Use Entity Framework Core for database operations.
+Use Fluent Validation for input validation instead of manual checks.
+Log errors and events using Serilog with structured logging.
+Authenticate APIs using JWT tokens.
+Best Practices:
+
+Validation: Use Fluent Validation for clean and reusable validation logic.
+Logging:
+Use Serilog for structured logging.
+Configure logging to write to multiple sinks (e.g., file, console, and database).
+Authentication and Authorization:
+Use JWT tokens for secure API authentication.
+Implement role-based authorization for endpoints.
+Database Operations:
+Use LINQ for complex queries.
+Implement the Repository pattern for the data access layer.
+Use database migrations for schema management.
+Error Handling:
+Implement global exception handling middleware.
+Return standardized error responses in APIs.
+Performance:
+Optimize performance with caching (e.g., MemoryCache or Redis).
+Use asynchronous programming for I/O-bound operations.
+Testing:
+Write unit tests for business logic and validation.
+Use integration tests for API endpoints.
+Security:
+Secure sensitive data using encryption.
+Implement CSRF protection and validate all input data.
+API Standards:
+Use RESTful conventions for API design.
+Apply API versioning for backward compatibility.
+Key Conventions:
+
+Follow the MVC or clean architecture pattern.
+Use routing to define API endpoints.
+Use Razor or suitable template engines for server-side views if required.
+Handle repeated tasks using background services or scheduling libraries (e.g., Hangfire).
+Document APIs with Swagger (OpenAPI).
+

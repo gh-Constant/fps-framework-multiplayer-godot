@@ -10,10 +10,19 @@ config_version=5
 
 [application]
 
-config/name="FPS-Framework-Multiplayer"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/name="FPS Framework Multiplayer"
+run/main_scene="res://Scenes/Menu/MainMenu.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+NetworkManager="*res://Scenes/Network/NetworkManager.tscn"
 
 [dotnet]
 
-project/assembly_name="FPS-Framework-Multiplayer"
+project/assembly_name="FPS Framework Multiplayer"
+
+[physics]
+
+3d/default_gravity=20.0

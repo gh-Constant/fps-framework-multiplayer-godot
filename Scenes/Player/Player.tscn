@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4pj8y3gyk85v"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Player.cs" id="1_player"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u8v4r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2p4yd"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kj3m4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Head:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_player")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_u8v4r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2p4yd")
+
+[node name="Head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera" type="Camera3D" parent="Head"]
+unique_name_in_owner = true
+current = true
+
+[node name="NetworkSync" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_kj3m4")
